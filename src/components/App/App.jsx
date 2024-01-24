@@ -1,10 +1,24 @@
 import React from 'react';
-
+import Nav from '../Nav/Nav';
+import "./App.css";
 class App extends React.Component{
     render(){
         return (
-            <h1>Hey there! My name is Saumya!</h1>
-        )
+            <div className="app">
+                {/* Nav section */}
+                <Nav/>
+
+                {/* Landing Page */}
+
+
+                {/* Challenge Section */}
+
+
+                {/* Footer */}
+
+
+            </div>
+        );
     }
 }
 
