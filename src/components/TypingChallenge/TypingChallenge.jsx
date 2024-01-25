@@ -30,3 +30,4 @@ const TypingChallenge = ({ selectedParagraph, timeRemaining, timeStarted }) =>{
 };
 
 export default TypingChallenge;
+

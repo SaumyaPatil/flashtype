@@ -14,7 +14,7 @@ class App extends React.Component{
         words: 0,
         characters: 0,
         wpm: 0,
-    }
+    };
 
     render(){
         return (

@@ -8,7 +8,14 @@ const ChallengeSection = ({ selectedParagraph, words, characters, wpm, timeRemai
         <h1 data-aos="fade-down" className="challenge-section-header">
             Take a speed test now!
         </h1>
-        <TestContainer selectedParagraph={selectedParagraph} words={words} characters={characters} wpm={wpm} timeRemaining={timeRemaining} timeStarted={timeStarted} />
+        <TestContainer 
+          selectedParagraph={selectedParagraph} 
+          words={words} 
+          characters={characters} 
+          wpm={wpm} 
+          timeRemaining={timeRemaining} 
+          timeStarted={timeStarted} 
+        />
     </div>
   );
 };
