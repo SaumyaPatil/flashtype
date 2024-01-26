@@ -35,18 +35,18 @@ class App extends React.Component{
         //     });
     }
 
-    startTimer = () =>{
-        this.setState({timeStarted: true});
-        const timer = setInterval(()=>{
-            this.setState((prevState) => {
-                if (prevState.timeRemaining > 0) {
-                    return {
-                        timeRemaining: prevState.timeRemaining - 1,
-                    };
-                } else {
-                    clearInterval(timer);
-                    return { timeStarted: false };
-                }
+    startTimer = () => {
+        this.setState({ timeStarted: true }, () => {
+            const timer = setInterval(() => {
+                this.setState((prevState) => {
+                    if (prevState.timeRemaining > 0) {
+                        return { timeRemaining: prevState.timeRemaining - 1 };
+                    } else {
+                        clearInterval(timer);
+                        // Optional: Update any other state after the timer reaches zero
+                        return { timeStarted: false }; 
+                    }
+                });
             }, 1000);
         });
     };
