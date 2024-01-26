@@ -35,34 +35,34 @@ class App extends React.Component{
         //     });
     }
 
-    startTimer = () => {
-        this.setState({ timeStarted: true }, () => {
-            const timer = setInterval(() => {
-                this.setState((prevState) => {
-                    if (prevState.timeRemaining > 0) {
-                        return { timeRemaining: prevState.timeRemaining - 1 };
-                    } else {
-                        clearInterval(timer);
-                        // Optional: Update any other state after the timer reaches zero
-                        return { timeStarted: false }; 
-                    }
-                });
-            }, 1000);
-        });
-    };
-
-    // startTimer = () =>{
-    //     this.setState({timeStarted: true});
-    //     const timer = setInterval(()=>{
-    //         if(this.state.timeRemaining > 0){
-    //             this.setState({
-    //                 timeRemaining: this.state.timeRemaining -1,
+    // startTimer = () => {
+    //     this.setState({ timeStarted: true }, () => {
+    //         const timer = setInterval(() => {
+    //             this.setState((prevState) => {
+    //                 if (prevState.timeRemaining > 0) {
+    //                     return { timeRemaining: prevState.timeRemaining - 1 };
+    //                 } else {
+    //                     clearInterval(timer);
+    //                     // Optional: Update any other state after the timer reaches zero
+    //                     return { timeStarted: false }; 
+    //                 }
     //             });
-    //         }else{
-    //             clearInterval(timer);
-    //         }
-    //     }, 1000);
+    //         }, 1000);
+    //     });
     // };
+
+    startTimer = () =>{
+        this.setState({timeStarted: true});
+        const timer = setInterval(()=>{
+            if(this.state.timeRemaining > 0){
+                this.setState({
+                    timeRemaining: this.state.timeRemaining -1,
+                });
+            }else{
+                clearInterval(timer);
+            }
+        }, 1000);
+    };
 
     //This below function triggers any other input or timer as soon as the user starts typing.
     handleUserInput = (inputValue) =>{
