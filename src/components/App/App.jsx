@@ -100,5 +100,3 @@ class App extends React.Component{
 
 export default App;
 
-//video 30, handling user input
-//video 31, setting logic for timer
