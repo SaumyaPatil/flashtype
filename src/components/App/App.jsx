@@ -46,26 +46,7 @@ class App extends React.Component{
                 clearInterval(timer);
             }
         }, 1000);
-    };
-
-    // startTimer = () =>{
-    //     this.setState({timeStarted: true});
-    //     const timer = setInterval(()=>{
-    //         if(this.state.timeRemaining > 0){
-    //             //Change the WPM
-    //             const timeSpent = TotalTime - this.state.timeRemaining;
-    //             const wpm = timeSpent > 0
-    //                         ? (this.state.words/timeSpent) * TotalTime
-    //                         : 0;
-    //             this.setState({
-    //                 timeRemaining: this.state.timeRemaining - 1,
-    //                 wpm: parseInt(wpm),
-    //             });
-    //         }else{
-    //             clearInterval(timer);
-    //         }
-    //     }, 1000);
-    // }; 
+    }; 
 
     //This below function triggers any other input or timer as soon as the user starts typing.
     handleUserInput = (inputValue) =>{
