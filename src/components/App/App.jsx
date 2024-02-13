@@ -11,9 +11,9 @@ const TotalTime = 60;
 class App extends React.Component{
     state = {
         selectedParagraph: "",
-        timeStarted: false,
-        timeRemaining: TotalTime,
-        words: 0,
+        // timeStarted: false,
+        // timeRemaining: TotalTime,
+        // words: 0,
         characters: 0,
         wpm: 0,
         testInfo: [],
@@ -80,12 +80,12 @@ class App extends React.Component{
                 - No -> incorrect
          * 5. Irrespective of the case, characters, words, and speed (wpm) can be updated
         */
-        const characters = inputValue.length;
-        const words = inputValue.split(" ").length;
-        const index = characters -1;
-        if(index < 0){
+        // const characters = inputValue.length;
+        // const words = inputValue.split(" ").length;
+        // const index = characters -1;
+        // if(index < 0){
             
-        }
+        // }
     };
 
     render(){
