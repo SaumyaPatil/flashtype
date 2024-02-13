@@ -48,23 +48,39 @@ class App extends React.Component{
     //     }, 1000);
     // }; 
 
-    startTimer() {
-        this.setState({ timeStarted: true });
+    // startTimer() {
+    //     this.setState({ timeStarted: true });
 
-        const timer = setInterval(() => {
-            this.setState(prevState => ({
-                timeRemaining: prevState.timeRemaining > 0 ? prevState.timeRemaining - 1 : 0
-            }));
+    //     const timer = setInterval(() => {
+    //         this.setState(prevState => ({
+    //             timeRemaining: prevState.timeRemaining > 0 ? prevState.timeRemaining - 1 : 0
+    //         }));
 
-            if (this.state.timeRemaining <= 0) {
-                clearInterval(timer);
-            }
-        }, 1000);
-    }
+    //         if (this.state.timeRemaining <= 0) {
+    //             clearInterval(timer);
+    //         }
+    //     }, 1000);
+    // }
+
+    startTimer = () =>{
+        this.setState({timeStarted: true});
+        const timer = setInterval(()=>{
+            this.setState((prevState) => {
+                if (prevState.timeRemaining > 0) {
+                    return {
+                        timeRemaining: prevState.timeRemaining - 1,
+                    };
+                } else {
+                    clearInterval(timer);
+                    return { timeStarted: false };
+                }
+            });
+        }, 1000.0);
+    };
 
     //This below function triggers any other input or timer as soon as the user starts typing.
     handleUserInput = (inputValue) =>{
-        if(!this.state.timerStarted) this.startTimer();
+        if(!this.state.timeStarted) this.startTimer();
 
         /* 
          * 1. Handle the underflow case - all characters should be shown as unattempted
@@ -80,6 +96,7 @@ class App extends React.Component{
                 - No -> incorrect
          * 5. Irrespective of the case, characters, words, and speed (wpm) can be updated
         */
+
         // const characters = inputValue.length;
         // const words = inputValue.split(" ").length;
         // const index = characters -1;
