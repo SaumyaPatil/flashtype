@@ -35,38 +35,62 @@ class App extends React.Component{
         //     });
     }
 
-    // startTimer = () =>{
-    //     this.setState({timeStarted: true});
-    //     const timer = setInterval(()=>{
-    //         this.setState((prevState) => {
-    //             if (prevState.timeRemaining > 0) {
-    //                 return {
-    //                     timeRemaining: prevState.timeRemaining - 1,
-    //                 };
-    //             } else {
-    //                 clearInterval(timer);
-    //                 return { timeStarted: false };
-    //             }
-    //         });
-    //     }, 1000.000);
-    // };
-
-    startTimer = () =>{
-        this.setState({timeStarted: true});
-        const timer = setInterval(()=>{
-            if(this.state.timeRemaining > 0){
-                this.setState({
-                    timeRemaining: this.state.timeRemaining - 1,
-                });
-            }else{
+    startTimer = () => {
+        this.setState({ timeStarted: true });
+        const timer = setInterval(() => {
+            if (this.state.timeRemaining > 0) {
+                this.setState((prevState) => ({
+                    timeRemaining: prevState.timeRemaining - 1,
+                }));
+            } else {
                 clearInterval(timer);
             }
         }, 1000);
-    }; 
+    };
+
+    // startTimer = () =>{
+    //     this.setState({timeStarted: true});
+    //     const timer = setInterval(()=>{
+    //         if(this.state.timeRemaining > 0){
+    //             //Change the WPM
+    //             const timeSpent = TotalTime - this.state.timeRemaining;
+    //             const wpm = timeSpent > 0
+    //                         ? (this.state.words/timeSpent) * TotalTime
+    //                         : 0;
+    //             this.setState({
+    //                 timeRemaining: this.state.timeRemaining - 1,
+    //                 wpm: parseInt(wpm),
+    //             });
+    //         }else{
+    //             clearInterval(timer);
+    //         }
+    //     }, 1000);
+    // }; 
 
     //This below function triggers any other input or timer as soon as the user starts typing.
     handleUserInput = (inputValue) =>{
         if(!this.state.timerStarted) this.startTimer();
+
+        /* 
+         * 1. Handle the underflow case - all characters should be shown as unattempted
+         * 2. Handle the overflow case - early exit
+         * 3. Handle the backspace
+                - Mark the index+1 as not attempted (irrespective of whether the index is 0)
+                - But, dont forget to check for the overflow case here
+                (index+1 -> out of bound, when index === length - 1)
+         * 4. Update the status in the test info
+                - Find out the last character in the inputValue and its index 
+                - Check if the character at the same index in testInfo (state) matches or not
+                - Yes -> correct
+                - No -> incorrect
+         * 5. Irrespective of the case, characters, words, and speed (wpm) can be updated
+        */
+        const characters = inputValue.length;
+        const words = inputValue.split(" ").length;
+        const index = characters -1;
+        if(index < 0){
+            
+        }
     };
 
     render(){
