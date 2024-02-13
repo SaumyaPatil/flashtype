@@ -35,18 +35,32 @@ class App extends React.Component{
         //     });
     }
 
-    startTimer = () =>{
-        this.setState({timeStarted: true});
-        const timer = setInterval(()=>{
-            if(this.state.timeRemaining > 0){
-                this.setState({
-                    timeRemaining: this.state.timeRemaining - 1,
-                });
-            }else{
+    // startTimer = () =>{
+    //     this.setState({timeStarted: true});
+    //     const timer = setInterval(()=>{
+    //         if(this.state.timeRemaining > 0){
+    //             this.setState({
+    //                 timeRemaining: this.state.timeRemaining - 1,
+    //             });
+    //         }else{
+    //             clearInterval(timer);
+    //         }
+    //     }, 1000);
+    // }; 
+
+    startTimer() {
+        this.setState({ timeStarted: true });
+
+        const timer = setInterval(() => {
+            this.setState(prevState => ({
+                timeRemaining: prevState.timeRemaining > 0 ? prevState.timeRemaining - 1 : 0
+            }));
+
+            if (this.state.timeRemaining <= 0) {
                 clearInterval(timer);
             }
         }, 1000);
-    }; 
+    }
 
     //This below function triggers any other input or timer as soon as the user starts typing.
     handleUserInput = (inputValue) =>{
