@@ -11,9 +11,9 @@ const TotalTime = 60;
 class App extends React.Component{
     state = {
         selectedParagraph: "",
-        // timeStarted: false,
-        // timeRemaining: TotalTime,
-        // words: 0,
+        timeStarted: false,
+        timeRemaining: TotalTime,
+        words: 0,
         characters: 0,
         wpm: 0,
         testInfo: [],
