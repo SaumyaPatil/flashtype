@@ -177,7 +177,7 @@ class App extends React.Component{
                     TotalTime={TotalTime}
                     testInfo={this.state.testInfo}
                     onInputChange = {this.handleUserInput}
-                    startAgain = {this.state.startAgain}
+                    startAgain = {this.startAgain}
                 />
 
                 {/* Footer */}

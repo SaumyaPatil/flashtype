@@ -24,7 +24,7 @@ const TryAgain = ({
 
             <div>
                 <button
-                onClick={() => startAgain()}
+                onClick={() => startAgain}
                 className="end-buttons start-again-btn"
                 >
                     Re-Try
