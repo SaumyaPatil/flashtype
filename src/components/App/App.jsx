@@ -6,47 +6,61 @@ import Footer from '../Footer/Footer';
 import ChallengeSection from '../ChallengeSection/ChallengeSection';
 
 const TotalTime = 60;
-// const ServiceUrl = "http://metaphorpsum.com/paragraphs/1/9";
+const ServiceUrl = "http://metaphorpsum.com/paragraphs/1/9";
+const defaultState = {
+    selectedParagraph: "",
+    timeStarted: false,
+    timeRemaining: TotalTime,
+    words: 0,
+    characters: 0,
+    wpm: 0,
+    testInfo: [],
+};
 
 class App extends React.Component{
-    state = {
-        selectedParagraph: "",
-        timeStarted: false,
-        timeRemaining: TotalTime,
-        words: 0,
-        characters: 0,
-        wpm: 0,
-        testInfo: [],
-    };
+    state = defaultState;
 
-    componentDidMount(){
-        //  fetch(ServiceUrl)
-        //     .then(response => response.text())
-        //     .then((data) =>{
-        //         this.setState({selectedParagraph : data});
-        //         const selectedParagraphArray = this.state.selectedParagraph.split("");
-        //         const testInfo = selectedParagraphArray.map((selectedLetter)=>{
-        //             return{
-        //                 testLetter: selectedLetter,
-        //                 status: "notAttempted",
-        //             }
-        //         });
-        //         this.setState({testInfo});
-        //     });
+    fetchNewParagraph = () =>{
+        fetch(ServiceUrl)
+            .then(response => response.text())
+            .then((data) =>{
+                const selectedParagraphArray = data.split("");
+                const testInfo = selectedParagraphArray.map((selectedLetter)=>{
+                    return{
+                        testLetter: selectedLetter,
+                        status: "notAttempted",
+                    }
+                });
+                this.setState({
+                    ...defaultState,
+                    testInfo, 
+                    selectedParagraph : data
+                });
+            });
     }
 
-    // startTimer = () =>{
-    //     this.setState({timeStarted: true});
-    //     const timer = setInterval(()=>{
-    //         if(this.state.timeRemaining > 0){
-    //             this.setState({
-    //                 timeRemaining: this.state.timeRemaining - 1,
-    //             });
-    //         }else{
-    //             clearInterval(timer);
-    //         }
-    //     }, 1000);
-    // }; 
+    componentDidMount(){
+        this.fetchNewParagraph();
+    }
+
+    startTimer = () =>{
+        this.setState({timeStarted: true});
+        const timer = setInterval(()=>{
+            if(this.state.timeRemaining > 0){
+                const timeSpent = TotalTime - this.state.timeRemaining;
+                const wpm = 
+                    timeSpent > 0
+                        ? (this.state.words / timeSpent) * TotalTime
+                        : 0;
+                this.setState({
+                    timeRemaining: this.state.timeRemaining - 1,
+                    wpm: parseInt(wpm),
+                });
+            }else{
+                clearInterval(timer);
+            }
+        }, 1000);
+    }; 
 
     // startTimer() {
     //     this.setState({ timeStarted: true });
@@ -62,21 +76,23 @@ class App extends React.Component{
     //     }, 1000);
     // }
 
-    startTimer = () =>{
-        this.setState({timeStarted: true});
-        const timer = setInterval(()=>{
-            this.setState((prevState) => {
-                if (prevState.timeRemaining > 0) {
-                    return {
-                        timeRemaining: prevState.timeRemaining - 1,
-                    };
-                } else {
-                    clearInterval(timer);
-                    return { timeStarted: false };
-                }
-            });
-        }, 1000.0);
-    };
+    // startTimer = () =>{
+    //     this.setState({timeStarted: true});
+    //     const timer = setInterval(()=>{
+    //         this.setState((prevState) => {
+    //             if (prevState.timeRemaining > 0) {
+    //                 return {
+    //                     timeRemaining: prevState.timeRemaining - 1,
+    //                 };
+    //             } else {
+    //                 clearInterval(timer);
+    //                 return { timeStarted: false };
+    //             }
+    //         });
+    //     }, 1000.0);
+    // };
+
+    startAgain = () => this.fetchNewParagraph();
 
     //This below function triggers any other input or timer as soon as the user starts typing.
     handleUserInput = (inputValue) =>{
@@ -97,12 +113,46 @@ class App extends React.Component{
          * 5. Irrespective of the case, characters, words, and speed (wpm) can be updated
         */
 
-        // const characters = inputValue.length;
-        // const words = inputValue.split(" ").length;
-        // const index = characters -1;
-        // if(index < 0){
-            
-        // }
+        const characters = inputValue.length;
+        const words = inputValue.split(" ").length;
+        const index = characters -1;
+        if(index < 0){
+            this.setState({
+                testInfo: [
+                    {
+                        testLetter: this.state.testInfo[0].testLetter,
+                        status: "notAttempted",
+                    },
+                    ...this.state.testInfo.slice(1),
+                ],
+                characters,
+                words,
+            });
+            return;
+        }
+
+        if(index >= this.state.selectedParagraph.length){
+            this.setState({characters, words});
+            return;
+        }
+
+        //Make a copy of testInfo
+        const testInfo = this.state.testInfo;
+        if(!(index === this.state.selectedParagraph.length - 1))
+            testInfo[index + 1].status = "notAttempted";
+
+        //Check for the correct typed letter
+        const isCorrect = inputValue[index] === testInfo[index].testLetter;
+
+        //Update the testInfo
+        testInfo[index].status = isCorrect ? "correct" : "incorrect";
+
+        //Update the state
+        this.setState({
+            testInfo,
+            words,
+            characters
+        })
     };
 
     render(){
@@ -125,6 +175,7 @@ class App extends React.Component{
                     TotalTime={TotalTime}
                     testInfo={this.state.testInfo}
                     onInputChange = {this.handleUserInput}
+                    startAgain = {this.state.startAgain}
                 />
 
                 {/* Footer */}

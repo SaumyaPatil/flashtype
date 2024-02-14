@@ -11,7 +11,8 @@ const TestContainer = ({
     timeStarted, 
     selectedParagraph,
     testInfo,
-    onInputChange
+    onInputChange,
+    startAgain
 }) =>{
 
     return(
@@ -35,6 +36,7 @@ const TestContainer = ({
                         words={words} 
                         characters={characters} 
                         wpm={wpm}
+                        startAgain={startAgain}
                     />
                 </div>
             )}
