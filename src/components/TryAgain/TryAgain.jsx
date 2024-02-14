@@ -24,7 +24,10 @@ const TryAgain = ({
 
             <div>
                 <button
-                onClick={() => startAgain()}
+                onClick={(e) =>{
+                    e.preventDefault();
+                    startAgain();
+                }}
                 className="end-buttons start-again-btn"
                 >
                     Re-Try

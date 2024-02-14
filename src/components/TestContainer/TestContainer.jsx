@@ -14,11 +14,11 @@ const TestContainer = ({
     onInputChange,
     startAgain
 }) =>{
-
+//data-aos="fade-up"
     return(
         <div className="test-container">
             {timeRemaining > 0 ? (
-                <div data-aos="fade-up" className="typing-challenge-container">
+                <div className="typing-challenge-container">
                     <TypingChallengeContainer 
                         words={words} 
                         characters={characters} 
