@@ -5,7 +5,7 @@ import Landing from '../Landing/Landing';
 import Footer from '../Footer/Footer';
 import ChallengeSection from '../ChallengeSection/ChallengeSection';
 
-const TotalTime = 60;
+const TotalTime = 3;
 const ServiceUrl = "http://metaphorpsum.com/paragraphs/1/9";
 const defaultState = {
     selectedParagraph: "",
@@ -92,7 +92,9 @@ class App extends React.Component{
     //     }, 1000.0);
     // };
 
-    startAgain = () => this.fetchNewParagraph();
+    startAgain = () => {
+        this.fetchNewParagraph();
+    }
 
     //This below function triggers any other input or timer as soon as the user starts typing.
     handleUserInput = (inputValue) =>{
