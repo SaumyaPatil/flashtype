@@ -2,7 +2,7 @@ import React from "react";
 import './Landing.css';
 import flash from "./../../assets/flash.png";
 import Typewriter from "typewriter-effect";
-
+ 
 const Landing = () =>{
     return(
         <div className="landing-container">
