@@ -1,7 +1,7 @@
 import React from 'react';
 import './ChallengeSection.css';
 import TestContainer from '../TestContainer/TestContainer';
-
+ 
 const ChallengeSection = ({ selectedParagraph, words, characters, wpm, timeRemaining, timeStarted, testInfo, onInputChange, startAgain }) => {
   return (
     <div className="challenge-section-container">
